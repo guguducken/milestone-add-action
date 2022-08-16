@@ -1,0 +1,17 @@
+name: "Auto add milestone"
+description: "Add milestone to an issue"
+
+inputs:
+  action-token:
+    description: "GitHub token for access GitHub repository"
+    required: true
+  milestones:
+    description: "the milestone of different issue type"
+    required: true
+
+runs:
+  using: "node16"
+  main: "src/index.js"
+branding:
+  icon: "tag"
+  color: "blue"
