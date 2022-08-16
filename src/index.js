@@ -7,10 +7,16 @@ const milestones = core.getInput("milestones");
 async function run() {
     const context = github.context;
 
+    const issue_action = context.issue;
+
     const oc = github.getOctokit(github_token);
 
     const { data: issue } = await oc.rest.issues.get(
-        ...context.issue,
+        {
+            owner: issue_action.owner,
+            repo: issue_action.repo,
+            issue_number: issue_action.number
+        }
     )
     core.info(JSON.stringify(issue));
 }
