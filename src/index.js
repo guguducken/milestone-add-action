@@ -10,7 +10,7 @@ async function run() {
     const oc = github.getOctokit(github_token);
 
     const { data: issue } = await oc.rest.issues.get(
-        context.issue,
+        ...context.issue,
     )
     core.info(JSON.stringify(issue));
 }
