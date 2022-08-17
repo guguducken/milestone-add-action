@@ -17,6 +17,15 @@ async function run() {
         }
     )
     core.info(JSON.stringify(issue));
+
+    //get milestones
+    const { data: milestones } = await oc.rest.issues.listMilestones(
+        {
+            ...context.repo,
+        }
+    )
+
+    core.info(JSON.stringify(milestones));
 }
 
 run();
