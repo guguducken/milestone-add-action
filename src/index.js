@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 const github_token = core.getInput("action-token", { required: true });
-const milestones = core.getInput("milestones");
+const milestones = JSON.parse(core.getInput("milestones"));
 
 async function run() {
     try {
@@ -10,6 +10,7 @@ async function run() {
 
         //get issue type regexp object Array
         let re_title = getTitleRe();
+        core.info(JSON.stringify(re_title));
 
         const oc = github.getOctokit(github_token);
 
