@@ -2,13 +2,14 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 const github_token = core.getInput("action-token", { required: true });
-const milestones = JSON.parse(core.getInput("milestones"));
+const milestones = core.getInput("milestones");
 
 async function run() {
     try {
         const context = github.context;
 
         //get issue type regexp object Array
+        core.info(JSON.stringify(milestones));
         let re_title = getTitleRe();
         core.info(JSON.stringify(re_title));
 
