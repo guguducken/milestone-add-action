@@ -98,7 +98,9 @@ function getTitleRe() {
             }
         );
     }
-    core.info(res.toString())
+    for (const { re, mile } of res) {
+        core.info(re.toString() + " " + mile);
+    }
     return res;
 }
 
