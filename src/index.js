@@ -87,6 +87,7 @@ function getTitleRe() {
     core.info(co_milestones);
     let milestone_obj = JSON.parse(co_milestones);
     for (const title of Object.keys(milestone_obj)) {
+        core.info(title);
         res.push(
             {
                 re: new RegExp(reParse(title), "igm"),
