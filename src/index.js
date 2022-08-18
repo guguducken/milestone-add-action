@@ -10,7 +10,6 @@ async function run() {
 
         //get issue type regexp object Array
         let re_title = getTitleRe();
-        core.info(JSON.stringify(re_title));
 
         const oc = github.getOctokit(github_token);
 
@@ -33,7 +32,11 @@ async function run() {
         }
 
         //get the name of target milestone
-        const targetName = getTargetName();
+        const targetName = getTargetName(title_issue, re_title);
+
+        if (targetName === null) {
+            throw "There is no corresponding milestones,please check your yml file"
+        }
 
         //get milestones of repository
         const { data: repo_milestones } = await oc.rest.issues.listMilestones(
@@ -95,6 +98,7 @@ function getTitleRe() {
             }
         );
     }
+    core.info(res.toString())
     return res;
 }
 
