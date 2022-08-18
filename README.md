@@ -10,7 +10,7 @@ Create a workflow `milestones.yml` file in your repositories `.github/workflows 
 
 ### Inputs
 
-#### github-token
+#### action-token
 
 The GitHub Actions token. e.g. `secrets.PATHS_TOKEN`. For more information,See this link: [Creating a personal access token](https://docs.github.com/cn/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
