@@ -35,7 +35,7 @@ async function run() {
         const targetName = getTargetName(title_issue, re_title);
 
         if (targetName === null) {
-            throw "There is no corresponding milestones,please check your yml file"
+            throw new Error("There is no corresponding milestones,please check your yml file");
         }
 
         //get milestones of repository
@@ -46,7 +46,7 @@ async function run() {
         )
 
         if (repo_milestones.length == 0) {
-            throw "The repository " + context.repo.repo + "don't have any milestone";
+            throw new Error("The repository " + context.repo.repo + "don't have any milestone");
         }
 
         //check whether milestone exists and get the number of target milestone
@@ -58,7 +58,7 @@ async function run() {
         }
 
         if (target == -1) {
-            throw "There is no corresponding Milestone in the repository";
+            throw new Error("There is no corresponding Milestone in the repository");
         }
 
         //add milestone to issue
