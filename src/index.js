@@ -9,7 +9,6 @@ async function run() {
         const context = github.context;
 
         //get issue type regexp object Array
-        core.info(JSON.stringify(co_milestones));
         let re_title = getTitleRe();
         core.info(JSON.stringify(re_title));
 
@@ -85,11 +84,12 @@ function getTargetName(title, re_title) {
 
 function getTitleRe() {
     let res = new Array();
-    for (const type of Object.keys(co_milestones)) {
+    let milestone_obj = JSON.parse(co_milestones);
+    for (const type of Object.keys(milestone_obj)) {
         res.push(
             {
                 re: new RegExp(reParse(type), "igm"),
-                mile: co_milestones[type],
+                mile: milestone_obj[type],
             }
         );
     }
