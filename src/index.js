@@ -22,6 +22,7 @@ async function run() {
         )
         //get issue title
         const title_issue = issue.title;
+        core.info("The title of this issue is: " + title_issue);
 
         //get issue milestone
         const issue_milestone = issue.milestone;
@@ -37,6 +38,7 @@ async function run() {
         if (targetName === null) {
             throw new Error("There is no corresponding milestones,please check your yml file or issue title");
         }
+        core.info("The target milestone which need to add to this issue is: " + targetName);
 
         //get milestones of repository
         const { data: repo_milestones } = await oc.rest.issues.listMilestones(
