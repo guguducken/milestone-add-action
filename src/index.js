@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 const github_token = core.getInput("action-token", { required: true });
-const milestones = core.getInput("milestones");
+const co_milestones = JSON.parse(core.getInput("co-milestones"));
 
 async function run() {
     try {
@@ -85,11 +85,11 @@ function getTargetName(title, re_title) {
 
 function getTitleRe() {
     let res = new Array();
-    for (const type of Object.keys(milestones)) {
+    for (const type of Object.keys(co_milestones)) {
         res.push(
             {
                 re: new RegExp(reParse(type), "igm"),
-                mile: milestones[type],
+                mile: co_milestones[type],
             }
         );
     }

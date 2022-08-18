@@ -5,7 +5,7 @@ inputs:
   action-token:
     description: "GitHub token for access GitHub repository"
     required: true
-  milestones:
+  co-milestones:
     description: "the milestone of different issue type"
     required: true
 
