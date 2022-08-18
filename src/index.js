@@ -84,7 +84,8 @@ function getTargetName(title, re_title) {
 
 function getTitleRe() {
     let res = new Array();
-    let milestone_obj = await JSON.parse(co_milestones);
+    core.info(co_milestones);
+    let milestone_obj = JSON.parse(co_milestones);
     for (const title of Object.keys(milestone_obj)) {
         res.push(
             {
