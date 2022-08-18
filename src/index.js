@@ -35,7 +35,7 @@ async function run() {
         const targetName = getTargetName(title_issue, re_title);
 
         if (targetName === null) {
-            throw new Error("There is no corresponding milestones,please check your yml file");
+            throw new Error("There is no corresponding milestones,please check your yml file or issue title");
         }
 
         //get milestones of repository
@@ -54,6 +54,7 @@ async function run() {
         for (const repo_mile of repo_milestones) {
             if (targetName == repo_mile.title) {
                 target = repo_mile.number;
+                break;
             }
         }
 
