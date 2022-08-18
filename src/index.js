@@ -27,7 +27,7 @@ async function run() {
         const issue_milestone = issue.milestone;
 
         if (issue_milestone != null) {
-            core.info("The issue #" + context.issue.number + "already have milestone: " + issue_milestone.title);
+            core.info("The issue #" + context.issue.number + " already have milestone: " + issue_milestone.title);
             return;
         }
 
@@ -87,19 +87,14 @@ function getTargetName(title, re_title) {
 
 function getTitleRe() {
     let res = new Array();
-    core.info(co_milestones);
     let milestone_obj = JSON.parse(co_milestones);
     for (const title of Object.keys(milestone_obj)) {
-        core.info(title);
         res.push(
             {
                 re: new RegExp(reParse(title), "igm"),
                 mile: milestone_obj[title],
             }
         );
-    }
-    for (const { re, mile } of res) {
-        core.info(re.toString() + " " + mile);
     }
     return res;
 }
