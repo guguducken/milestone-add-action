@@ -27,7 +27,7 @@ async function run() {
         //check whether milestone exists and get the number of target milestone
         let target = -1;
         for (const repo_mile of repo_milestones) {
-            if (targetName == repo_mile.title) {
+            if (milestone == repo_mile.title) {
                 target = repo_mile.number;
                 break;
             }
