@@ -2,14 +2,11 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 const github_token = core.getInput("action-token", { required: true });
-const co_milestones = core.getInput("co-milestones", { required: true });
+const milestone = core.getInput("milestone", { required: true });
 
 async function run() {
     try {
         const context = github.context;
-
-        //get issue type regexp object Array
-        let re_title = getTitleRe();
 
         const oc = github.getOctokit(github_token);
 
@@ -32,13 +29,10 @@ async function run() {
             return;
         }
 
-        //get the name of target milestone
-        const targetName = getTargetName(title_issue, re_title);
-
-        if (targetName === null) {
+        if (milestone.length == 0) {
             throw new Error("There is no corresponding milestones,please check your yml file or issue title");
         }
-        core.info("The target milestone which need to add to this issue is: " + targetName);
+        core.info("The target milestone which need to add to this issue is: " + milestone);
 
         //get milestones of repository
         const { data: repo_milestones } = await oc.rest.issues.listMilestones(
@@ -76,44 +70,6 @@ async function run() {
     } catch (err) {
         core.setFailed(err.message);
     }
-}
-
-function getTargetName(title, re_title) {
-    for (let { re, mile } of re_title) {
-        re.lastIndex = 0;
-        if (re.test(title)) {
-            return mile;
-        }
-    }
-    return null;
-}
-
-function getTitleRe() {
-    let res = new Array();
-    let milestone_obj = JSON.parse(co_milestones);
-    for (const title of Object.keys(milestone_obj)) {
-        res.push(
-            {
-                re: new RegExp(reParse(title), "igm"),
-                mile: milestone_obj[title],
-            }
-        );
-    }
-    return res;
-}
-
-function reParse(str) {
-    let ans = "";
-    for (let index = 0; index < str.length; index++) {
-        const e = str[index];
-        if (e == "/" || e == "{" || e == "}" || e == "[" || e == "]" ||
-            e == "(" || e == ")" || e == "^" || e == "$" || e == "+" ||
-            e == "\\" || e == "." || e == "*" || e == "|" || e == "?") {
-            ans += "\\";
-        }
-        ans += e;
-    }
-    return ans
 }
 
 run();
